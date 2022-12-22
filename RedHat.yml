@@ -1,0 +1,32 @@
+- name: Install RedHat Apache
+  yum:
+    name: httpd
+    state: latest
+
+- name: Start RedHat Apache
+  systemd:
+    state: started
+    name: httpd
+    enabled: yes
+
+- name: Install wget
+  yum:
+    name: wget
+    state: latest  
+
+- name: Install Unzip
+  yum:
+    name: unzip
+    state: latest
+
+- name: Unarchive a file that needs to be downloaded
+  unarchive:
+    src: https://www.free-css.com/assets/files/free-css-templates/download/page282/edukate.zip
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy files to /var/www/html
+  copy:
+    src: /tmp/online-education-website-template/
+    dest: /var/www/html/
+    remote_src: yes
